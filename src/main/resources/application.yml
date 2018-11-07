@@ -1,0 +1,7 @@
+# DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: xxx
+    username: xxx
+    password: xxx

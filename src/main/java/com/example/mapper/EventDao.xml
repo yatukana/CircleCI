@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.EventDao">
+	<sql id="event_select">
+		ee.uid,
+		ee.folder_id AS "folderId",
+		ee.guid,
+		ee.summary
+	</sql>
+	<select id="selectByUid" resultType="com.example.entity.EventEntity">
+		select
+		<include refid="event_select" />
+		from
+		event ee
+		where
+		delete_time is null
+		<if test="uid != null">
+			and uid = #{uid}
+		</if>
+		<if test="folderId != null">
+			and folder_id = #{folderId}
+		</if>
+		<if test="guid != null">
+			and guid = #{guid}
+		</if>
+	</select>
+
+	<select id="selectEventList"
+		resultType="com.example.entity.EventEntity">
+		select
+		<include refid="event_select" />
+		from
+		event ee
+		where
+		delete_time is null
+		<if test="uidList.size() > 0">
+			and uid in
+			<foreach item="uidList" open="(" close=")"
+				collection="uidList" separator=",">
+				#{uidList}
+			</foreach>
+		</if>
+		<if test="folderIdList.size() > 0">
+			and folder_id in
+			<foreach item="folderIdList" open="(" close=")"
+				collection="folderIdList" separator=",">
+				#{folderIdList}
+			</foreach>
+		</if>
+		<if test="guid != null">
+			and guid = #{guid}
+		</if>
+	</select>
+</mapper>
