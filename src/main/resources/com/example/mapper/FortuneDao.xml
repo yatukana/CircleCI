@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.FortuneDao">
+    <sql id="fortune_one_size">
+        fo.id
+    </sql>
+
+    <sql id="fortune_one_word">
+        fo.word_one
+    </sql>
+
+    <select id="selectOneNumAll" resultType="Integer">
+        select
+        <include refid="fortune_one_size"/>
+        from
+        fortune_one fo
+        where
+        id =(SELECT MAX(id) FROM fortune_one)
+    </select>
+
+    <select id="selectOneByNum" resultType="String">
+        select
+        <include refid="fortune_one_word"/>
+        from
+        fortune_one fo
+        where
+        id = #{id}
+    </select>
+
+
+
+
+    <sql id="fortune_two_size">
+        fo.id
+    </sql>
+
+    <sql id="fortune_two_word">
+        fo.word_two
+    </sql>
+
+    <select id="selectTwoNumAll" resultType="Integer">
+        select
+        <include refid="fortune_two_size"/>
+        from
+        fortune_two fo
+        where
+        id =(SELECT MAX(id) FROM fortune_two)
+    </select>
+
+    <select id="selectTwoByNum" resultType="String">
+        select
+        <include refid="fortune_two_word"/>
+        from
+        fortune_two fo
+        where
+        id = #{id}
+    </select>
+
+    <sql id="fortune_three_size">
+        fo.id
+    </sql>
+
+    <sql id="fortune_three_word">
+        fo.word_three
+    </sql>
+
+    <select id="selectThreeNumAll" resultType="Integer">
+        select
+        <include refid="fortune_three_size"/>
+        from
+        fortune_three fo
+        where
+        id =(SELECT MAX(id) FROM fortune_three)
+    </select>
+
+    <select id="selectThreeByNum" resultType="String">
+        select
+        <include refid="fortune_three_word"/>
+        from
+        fortune_three fo
+        where
+        id = #{id}
+    </select>
+
+
+</mapper>

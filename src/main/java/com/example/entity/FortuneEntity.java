@@ -1,45 +1,21 @@
 package com.example.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FortuneEntity {
 
-	private String uid;
+	private String wordOne;
 
-	private String guid;
+	private String wordTwo;
 
-	private String summary;
+	private String wordThree;
 
-	private Integer folderId;
-
-	public String getUid() {
-		return uid;
-	}
-
-	public String getGuid() {
-		return guid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-
-	public void setGuid(String guid) {
-		this.guid = guid;
-	}
-
-	public String getSummary() {
-		return summary;
-	}
-
-	public Integer getFolderId() {
-		return folderId;
-	}
-
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
-
-	public void setFolderId(Integer folderId) {
-		this.folderId = folderId;
-	}
 
 }
