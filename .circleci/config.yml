@@ -3,16 +3,22 @@ jobs:
   one:
     docker:
       - image: circleci/openjdk:8-jdk
+
+    working_directory: ~/repo
+
     steps:
       - checkout
       - run: echo "A first hello"
+      - run: sleep 10
 
   two:
     docker:
       - image: circleci/openjdk:8-jdk
     steps:
       - checkout
-      - run: mvn test
+      - run:
+          name: Run tests
+          command: mvn test
 
 workflows:
   version: 2
