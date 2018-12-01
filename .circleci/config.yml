@@ -2,7 +2,7 @@ version: 2
 jobs:
   one:
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
+      - image: circleci/openjdk:8-jdk
 
     working_directory: ~/spring-fortune
 
@@ -13,7 +13,7 @@ jobs:
 
   two:
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
+      - image: circleci/openjdk:8-jdk
 
     working_directory: ~/spring-fortune
 
@@ -21,7 +21,7 @@ jobs:
       - checkout
       - run:
           name: Run tests
-          command: mvn test
+          command: mvn integration-test
 
 workflows:
   version: 2
