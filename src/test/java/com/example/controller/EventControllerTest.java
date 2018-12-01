@@ -55,7 +55,7 @@ public class EventControllerTest {
                 .andExpect(jsonPath("uid").value("event001"))
                 .andExpect(jsonPath("guid").value("user1"))
                 .andExpect(jsonPath("summary").value("summary"))
-                .andExpect(jsonPath("folderId").value(10));
+                .andExpect(jsonPath("folderId").value(100));
         // mockしたサービスが呼び出されているか確認
         EasyMock.verify(eventServiceMock);
 
