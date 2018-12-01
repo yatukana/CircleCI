@@ -11,11 +11,9 @@ jobs: # a collection of steps
 
       - checkout # check out source code to working directory
 
-      - run: mvn clean
-
       - run: mvn dependency:go-offline # gets the project dependencies
 
-      - run: mvn test
+      - run: mvn clean install
 
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard. 
           path: target/surefire-reports
