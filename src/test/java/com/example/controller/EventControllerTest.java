@@ -3,8 +3,10 @@ package com.example.controller;
 import com.example.model.Event;
 import com.example.service.EventService;
 import org.easymock.EasyMock;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +25,7 @@ public class EventControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    @DisplayName("Example Service should work!")
     public void getEvent_正常系() throws Exception {
         // 返却値の設定
         Event event = new Event();
