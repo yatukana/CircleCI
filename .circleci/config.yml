@@ -1,13 +1,33 @@
 version: 2
 jobs:
-  build:
-      docker:
-        - image: circleci/openjdk:8-jdk-browsers
+  one:
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
 
-      working_directory: ~/spring-fortune
+    working_directory: ~/spring-fortune
 
-      steps:
-        - checkout
-        - run:
+    steps:
+      - checkout
+      - run: echo "A first hello"
+      - run: sleep 10
+
+  two:
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+
+    working_directory: ~/spring-fortune
+
+    steps:
+      - checkout
+      - run:
           name: Run tests
           command: mvn test
+
+workflows:
+  version: 2
+  one_and_two:
+    jobs:
+      - one
+      - two:
+          requires:
+            - one
