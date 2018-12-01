@@ -15,8 +15,8 @@ jobs: # a collection of steps
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
       
       - run: mvn dependency:go-offline # gets the project dependencies
-      
-      - run: ls -all ~/.m2
+
+      - run: rm -R ~/.m2/repository
 
       - save_cache: # saves the project dependencies
           paths:
