@@ -25,7 +25,7 @@ public class EventControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void contextLoads() throws Exception {
+    public void getEvent_正常系() throws Exception {
         // 返却値の設定
         Event event = new Event();
         String uid = "event001";
@@ -55,7 +55,7 @@ public class EventControllerTest {
                 .andExpect(jsonPath("uid").value("event001"))
                 .andExpect(jsonPath("guid").value("user1"))
                 .andExpect(jsonPath("summary").value("summary"))
-                .andExpect(jsonPath("folderId").value(100));
+                .andExpect(jsonPath("folderId").value(10));
         // mockしたサービスが呼び出されているか確認
         EasyMock.verify(eventServiceMock);
 
