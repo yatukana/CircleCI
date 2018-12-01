@@ -11,19 +11,9 @@ jobs: # a collection of steps
 
       - checkout # check out source code to working directory
 
-      - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
-          key: spring-fortune-{{ checksum "pom.xml" }}
-
       - run: mvn clean
 
-      - run: mvn install
-
       - run: mvn dependency:go-offline # gets the project dependencies
-
-      - save_cache: # saves the project dependencies
-          paths:
-            - ~/.m2
-          key: spring-fortune-{{ checksum "pom.xml" }}
 
       - run: mvn test
 
