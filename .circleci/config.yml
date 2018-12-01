@@ -14,6 +14,8 @@ jobs: # a collection of steps
       - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
           key: spring-fortune-{{ checksum "pom.xml" }}
 
+      - run: mvn clean
+
       - run: mvn dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
