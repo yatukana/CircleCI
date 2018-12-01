@@ -16,6 +16,8 @@ jobs: # a collection of steps
 
       - run: mvn clean
 
+      - run: mvn install
+
       - run: mvn dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
@@ -23,7 +25,7 @@ jobs: # a collection of steps
             - ~/.m2
           key: spring-fortune-{{ checksum "pom.xml" }}
 
-      - run: mvn package
+      - run: mvn test
 
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard. 
           path: target/surefire-reports
