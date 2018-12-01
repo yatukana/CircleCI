@@ -22,22 +22,35 @@ jobs:
 
     working_directory: ~/spring-fortune
 
-    steps:
-      - checkout
+     steps:
+       - checkout
 
-      - restore_cache:
-          key: spring-fortune-{{ checksum "pom.xml" }}
+       # Download and cache dependencies
+       - restore_cache:
+           keys:
+           - v1-dependencies-{{ checksum "pom.xml" }}
+           # fallback to using the latest cache if no exact match is found
+           - v1-dependencies-
 
-      - run: mvn dependency:go-offline
+       - run: mvn dependency:go-offline
 
-      - save_cache:
-          paths:
-           - ~/.m2
-          key: spring-fortune-{{ checksum "pom.xml" }}
+       - save_cache:
+           paths:
+             - ~/.m2
+           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      - run:
-          name: Run tests
-          command: mvn package -B
+       # run tests!
+       - run: mvn integration-test
+
+       - run: |
+          mkdir -p ~/spring-fortune/junit/
+          find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/spring-fortune/junit/ \;
+
+       - store_test_results:
+          path: ~/spring-fortune/junit
+
+       - store_artifacts:
+          path: ~/spring-fortune/junit
 
 
 workflows:
