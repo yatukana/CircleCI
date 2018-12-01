@@ -1,9 +1,6 @@
 package com.example.logic;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
