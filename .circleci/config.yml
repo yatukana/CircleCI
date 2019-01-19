@@ -13,16 +13,6 @@ jobs: # a collection of steps　ステップ集の集まり
 
       - run: mvn dependency:go-offline # gets the project dependencies　プロジェクトの依存関係を取得
 
-      - run: mvn test # テストの実行
-
-      - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
-      # CircleCIダッシュボードに表示できるように、 `target / surefire-reports`ディレクトリからテストメタデータをアップロード
-          path: target/surefire-reports
-
-      - store_artifacts: # store the uberjar as an artifact　uberjarを成果物として保管する
-          path: target/spring-fortune-0.0.1-SNAPSHOT.jar
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
-
   test: # runs not using Workflows must have a `build` job as entry point　ワークフローを使用しない実行ではエントリポイントとして `build`ジョブが必要
 
     working_directory: ~/spring-fortune # directory where steps will run　ステップが実行されるディレクトリ
