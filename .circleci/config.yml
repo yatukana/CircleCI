@@ -53,10 +53,11 @@ workflows:
       - test:
           requires: # buildが成功したら実行する
             - build
-      - deploy:
+      - deploy-approval:
+          type: approval
           requires:
             - build
             - test
-          filters: # 実行したいブランチ
-            branches:
-              only: master
+      - deploy:
+          requires:
+            - deploy-approval
