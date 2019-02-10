@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class SpringMybatisApplication {
+public class SpringFortuneApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringMybatisApplication.class, args);
+        SpringApplication.run(SpringFortuneApplication.class, args);
     }
 }
