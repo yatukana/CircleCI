@@ -35,6 +35,10 @@ jobs: # a collection of steps　ステップ集の集まり
       - store_artifacts: # store the uberjar as an artifact　uberjarを成果物として保管する
           path: target/spring-fortune-0.0.1-SNAPSHOT.jar
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+      
+    post:
+      - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+      - find . -type f -regex ".*/test-results/*/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
 workflows:
   version: 2
