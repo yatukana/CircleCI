@@ -11,8 +11,6 @@ jobs: # a collection of steps　ステップ集の集まり
 
       - checkout # check out source code to working directory　作業ディレクトリへのソースコードのチェックアウト
 
-      - run: mvn dependency:go-offline # gets the project dependencies　プロジェクトの依存関係を取得
-
       - persist_to_workspace:
           root: .
           paths:
@@ -29,6 +27,8 @@ jobs: # a collection of steps　ステップ集の集まり
 
       - attach_workspace: # workspaceをアタッチする
           at: .
+
+      - run: mvn dependency:go-offline # gets the project dependencies　プロジェクトの依存関係を取得
 
       - run: mvn test # テストの実行
 
