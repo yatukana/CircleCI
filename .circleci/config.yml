@@ -58,6 +58,9 @@ workflows:
           requires:
             - build
             - test
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - deploy-approval
