@@ -11,7 +11,10 @@ jobs: # a collection of steps　ステップ集の集まり
 
       - checkout # check out source code to working directory　作業ディレクトリへのソースコードのチェックアウト
 
-      - run: mvn dependency:go-offline # gets the project dependencies　プロジェクトの依存関係を取得
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   test: # runs not using Workflows must have a `build` job as entry point　ワークフローを使用しない実行ではエントリポイントとして `build`ジョブが必要
 
@@ -22,19 +25,12 @@ jobs: # a collection of steps　ステップ集の集まり
 
     steps: # a collection of executable commands　実行可能コマンドのコレクション
 
-      - checkout # check out source code to working directory　作業ディレクトリへのソースコードのチェックアウト
+      - attach_workspace: # workspaceをアタッチする
+          at: .
 
       - run: mvn dependency:go-offline # gets the project dependencies　プロジェクトの依存関係を取得
 
       - run: mvn test # テストの実行
-
-      - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
-      # CircleCIダッシュボードに表示できるように、 `target / surefire-reports`ディレクトリからテストメタデータをアップロード
-          path: target/surefire-reports
-
-      - store_artifacts: # store the uberjar as an artifact　uberjarを成果物として保管する
-          path: target/spring-fortune-0.0.1-SNAPSHOT.jar
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
 
   deploy:
 
@@ -43,13 +39,11 @@ jobs: # a collection of steps　ステップ集の集まり
     docker: # run the steps with Docker　dockerでステップを実行する
       - image: circleci/openjdk:8-jdk # ...with this image as the primary container; this is where all `steps` will run　すべての `steps`が実行される場所
 
-    steps: # a collection of executable commands　実行可能コマンドのコレクション
-
-      - checkout # check out source code to working directory　作業ディレクトリへのソースコードのチェックアウト
+    steps:
+      - attach_workspace:
+          at: .
 
       - run: echo deploy
-
-
 
 workflows:
   version: 2
@@ -59,10 +53,14 @@ workflows:
       - test:
           requires: # buildが成功したら実行する
             - build
-      - deploy:
+      - deploy-approval:
+          type: approval
           requires:
             - build
             - test
           filters:
             branches:
               only: master
+      - deploy:
+          requires:
+            - deploy-approval
