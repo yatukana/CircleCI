@@ -16,7 +16,7 @@ jobs: # a collection of steps　ステップ集の集まり
           paths:
             - .
 
-  test: # runs not using Workflows must have a `build` job as entry point　ワークフローを使用しない実行ではエントリポイントとして buildジョブが必要
+  test: # runs not using Workflows must have a `build` job as entry point　ワークフローを使用しない実行ではエントリポイントとして "build"ジョブが必要
 
     working_directory: ~/spring-fortune # directory where steps will run　ステップが実行されるディレクトリ
 
