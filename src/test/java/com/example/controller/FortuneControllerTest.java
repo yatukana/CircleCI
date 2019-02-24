@@ -46,7 +46,7 @@ public class FortuneControllerTest {
 
         // 実行と返却値の確認
         this.mockMvc.perform(get("/fortune/"))
-                .andExpect(jsonPath("wordOne").value("1"))
+                .andExpect(jsonPath("wordOne").value("2"))
                 .andExpect(jsonPath("wordTwo").value("2"))
                 .andExpect(jsonPath("wordThree").value("3"));
         // mockしたサービスが呼び出されているか確認
