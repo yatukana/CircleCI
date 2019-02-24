@@ -2,7 +2,7 @@ version: 2 # use CircleCI 2.0　2.0を使用する際は2とする
 jobs: # a collection of steps　ステップ集の集まり
   build: # runs not using Workflows must have a `build` job as entry point　ワークフローを使用しない実行ではエントリポイントとして `build`ジョブが必要
     
-    working_directory: ~/spring-fortune # directory where steps will run　ステップが実行されるディレクトリ
+    working_directory: ~/workspace # directory where steps will run　ステップが実行されるディレクトリ
 
     docker: # run the steps with Docker　dockerでステップを実行する
       - image: circleci/openjdk:8-jdk # ...with this image as the primary container; this is where all `steps` will run　すべての `steps`が実行される場所
@@ -16,9 +16,9 @@ jobs: # a collection of steps　ステップ集の集まり
           paths:
             - .
 
-  test: # runs not using Workflows must have a `build` job as entry point　ワークフローを使用しない実行ではエントリポイントとして `build`ジョブが必要
+  test: # runs not using Workflows must have a `build` job as entry point　ワークフローを使用しない実行ではエントリポイントとして "build"ジョブが必要
 
-    working_directory: ~/spring-fortune # directory where steps will run　ステップが実行されるディレクトリ
+    working_directory: ~/workspace # directory where steps will run　ステップが実行されるディレクトリ
 
     docker: # run the steps with Docker　dockerでステップを実行する
       - image: circleci/openjdk:8-jdk # ...with this image as the primary container; this is where all `steps` will run　すべての `steps`が実行される場所
@@ -34,7 +34,7 @@ jobs: # a collection of steps　ステップ集の集まり
 
   deploy:
 
-    working_directory: ~/spring-fortune # directory where steps will run　ステップが実行されるディレクトリ
+    working_directory: ~/workspace # directory where steps will run　ステップが実行されるディレクトリ
 
     docker: # run the steps with Docker　dockerでステップを実行する
       - image: circleci/openjdk:8-jdk # ...with this image as the primary container; this is where all `steps` will run　すべての `steps`が実行される場所
@@ -45,22 +45,23 @@ jobs: # a collection of steps　ステップ集の集まり
 
       - run: echo deploy
 
+
 workflows:
   version: 2
   build_and_test: # workflow名
     jobs:
       - build
       - test:
-          requires: # buildが成功したら実行する
+          requires: # buildが成功したら実行
             - build
       - deploy-approval:
-          type: approval
-          requires:
+          type: approval # 手動実行
+          requires: # buildとtestが成功したら実行
             - build
             - test
           filters:
             branches:
-              only: master
+              only: master # maseterブランチの時だけ実行
       - deploy:
-          requires:
+          requires: # deploy-approvalが成功したら実行
             - deploy-approval
